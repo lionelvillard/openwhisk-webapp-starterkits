@@ -17,27 +17,40 @@
 const app = require('./app');
 const request = require('supertest');
 
+/*
+  OpenWhisk web action redirecting requests express
+
+  @param {string} baseurl       HTML base url use to resolve relative URLS
+  @param {string} staticbaseurl HTML base url use to resolve static assets relative URLS
+
+*/
 function main(args) {
   return new Promise((resolve, reject) => {
 
+    // Set baseurl and staticbaseurl so that templates can you them
     app.locals.baseurl = args.baseurl;
 
     if (args.staticbaseurl)
       app.locals.staticbaseurl = args.staticbaseurl;
 
+    // Create mock request based on the original request.
     let req = request(app)[args.__ow_method](args.__ow_path);
+
     if (args.__ow_headers)
       req.set(args.__ow_headers);
+
     if (args.__ow_query)
       req.set(args.__ow_query);
 
-    if (args.__ow_method === 'post' || args.__ow_method === 'put') {
-      req = req.send(args.__ow_body || '');
+    if (args.__ow_body && (args.__ow_method === 'post' || args.__ow_method === 'put')) {
+      req = req.send(args.__ow_body);
     }
 
     req.end((err, res) => {
-      if (err) reject(err);
+      if (err)
+        reject(err);
 
+      // Convert response back to a OpenWhisk response object.
       return resolve({
         statusCode: res.status,
         headers: res.headers,
