@@ -20,8 +20,8 @@ const request = require('supertest');
 /*
   OpenWhisk web action redirecting requests express
 
-  @param {string} baseurl       HTML base url use to resolve relative URLS
-  @param {string} staticbaseurl HTML base url use to resolve static assets relative URLS
+  @param {string} baseurl       HTML base url used to resolve relative URLS
+  @param {string} staticbaseurl HTML base url used to resolve static assets relative URLS
 
 */
 function main(args) {
