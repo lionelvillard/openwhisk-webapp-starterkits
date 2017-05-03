@@ -2,7 +2,8 @@ doctype html
 html
   head
     title= title
-    base(href=baseurl)
+    if baseurl
+      base(href=baseurl)
     link(rel='stylesheet', href=`${staticbaseurl || ''}stylesheets/style.css`)
   body
     block content
