@@ -20,7 +20,10 @@ const request = require('supertest');
 function main(args) {
   return new Promise((resolve, reject) => {
 
-    app.locals.baseurl = 'https://openwhisk.ng.bluemix.net/api/v1/web/villard@us.ibm.com_dev/default/express/';
+    app.locals.baseurl = args.baseurl;
+
+    if (args.staticbaseurl)
+      app.locals.staticbaseurl = args.staticbaseurl;
 
     let req = request(app)[args.__ow_method](args.__ow_path);
     if (args.__ow_headers)

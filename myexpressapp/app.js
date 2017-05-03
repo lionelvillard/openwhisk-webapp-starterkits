@@ -10,8 +10,6 @@ var users = require('./routes/users');
 
 var app = express();
 
-app.locals.baseurl = 'https://openwhisk.ng.bluemix.net/api/v1/web/villard@us.ibm.com_dev/default/express/';
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
