@@ -26,7 +26,6 @@ const request = require('supertest');
 */
 function main(args) {
   return new Promise((resolve, reject) => {
-
     // Set baseurl and staticbaseurl so that templates can you them
     app.locals.baseurl = args.baseurl;
 
@@ -40,7 +39,7 @@ function main(args) {
       req.set(args.__ow_headers);
 
     if (args.__ow_query)
-      req.set(args.__ow_query);
+      req.query(args.__ow_query);
 
     if (args.__ow_body && (args.__ow_method === 'post' || args.__ow_method === 'put')) {
       req = req.send(args.__ow_body);
